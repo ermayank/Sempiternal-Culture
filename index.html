@@ -26,6 +26,9 @@
         <li class="nav-item mx-1 my-2 login-link" style="display: none;">
           <a class="nav-link btn btn-outline-success" data-toggle="modal" data-target="#account-modal">Account</a>
         </li>
+        <li class="nav-item mx-1 my-2 login-link" style="display: none;">
+          <a class="nav-link btn btn-outline-success" data-toggle="modal" data-target="#task-modal">Create Task</a>
+        </li>
         <li class="nav-item mx-1 my-2 logout-btn login-link" style="display: none;">
           <a class="nav-link btn btn-outline-success">Logout</a>
         </li>
@@ -53,74 +56,15 @@
 </section>
   <!-- ########################### END JUMBOTRON ############################-->
 
-<!-- ########################### SECTION FOR TASK CREATION ############################-->
-  <section class="login-link">
-    <div class="bg-secondary py-2 text-dark">
-      <h3 class="display-5 text-center text-light">Assign a new task</h3>
-    </div>
 
-    <!--Create task form-->
-    <div class="bg-light">
-      <div class="container">
-        <form class="py-2">
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label for="exampleInputEmail1">Author</label>
-              <input type="email" class="form-control" id="task-author-email" aria-describedby="emailHelp">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="inputStatus">Staus</label>
-              <select id="inputStatus" class="form-control">
-                <option selected value="task-status-assigned">Assigned</option>
-                <option value="task-status-submitted">Submitted</option>
-                <option value="task-status-passed">Passed</option>
-                <option value="task-status-published">Published</option>
-                <option value="task-status-rejected">Rejected</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label>Publishing Date</label>
-              <input type="date" class="form-control" id="task-date">
-            </div>
-            <div class="form-group col-md-6">
-              <label>Publishing Date</label>
-              <input type="time" class="form-control" id="task-time">
-              <small>In Am-Pm Format</small>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Document Link</label>
-            <input type="text" class="form-control" id="task-link">
-          </div>
-          <button type="submit" class="btn btn-outline-danger">Submit</button>
-        </form>
-      </div>
-    </div>
-  </section>
-  <!-- ########################### END SECTION FOR TASK CREATION ############################-->
-  
   <hr>
 
    <!-- ########################### SECTION FOR TASKS ############################-->
 <section class="login-link">
-  <div class="container">
+  <div class="container taskSection">
     <!--Tasks cards-->
-    <h3 class="text-center text-dark">Your tasks</h3>
-    <div class="card my-1">
-      <div class="card-body">
-        <div class="task-user-content">
-          <div class="row">
-            <div class="col-md-6">
-              <p>Publishing date - 31-07-2020</p>
-            </div>
-            <div class="col-md-6">
-              <h2><span class="badge badge-primary">Under Review</span></h2>
-            </div>
-          </div>
-        </div>
-      </div>
+    <h3 class="text-center text-dark ">Your tasks</h3>
+    
     </div>
   </section>
   <!-- ########################### END SECTION FOR TASKS ############################-->
@@ -228,6 +172,59 @@
         </div>
       </div>
     </div>
+
+    <!--Create Task Modal-->
+    <div class="modal fade" id="task-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Join family</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="py-2" id="task-create-form">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="exampleInputEmail1">Author</label>
+                  <input type="email" class="form-control" id="task-author-email" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputStatus">Staus</label>
+                  <select id="inputStatus" class="form-control">
+                    <option value="Assigned">Assigned</option>
+                    <option value="Submitted">Submitted</option>
+                    <option value="Passed">Passed</option>
+                    <option value="Published">Published</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label>Publishing Date</label>
+                  <input type="date" class="form-control" id="task-date">
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Publishing Time</label>
+                  <input type="time" class="form-control" id="task-time">
+                  <small>In Am-Pm Format</small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Document Link</label>
+                <input type="text" class="form-control" id="task-link">
+              </div>
+              <button type="submit" class="btn btn-outline-danger">Submit</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

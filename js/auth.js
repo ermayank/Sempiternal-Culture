@@ -3,8 +3,8 @@ auth.onAuthStateChanged(user => {
     
     if (user) {
         //Get data from firestore (guides)
-        db.collection('guides').onSnapshot(snapshot => {
-            //setupGuides(snapshot.docs); // Function to get guides 
+        db.collection('tasks').onSnapshot(snapshot => {
+            assignedTasks(snapshot.docs); // Function to get guides 
             setupUI(user);
         });
     } else {
@@ -57,10 +57,51 @@ loginForm.addEventListener('submit', (e) => {
     auth.signInWithEmailAndPassword(email, password).then(cred => {
 
         $("#login-modal").modal("hide");
-        sloginForm.reset();
+        loginForm.reset();
         loginForm.querySelector('.error').innerHTML = '';
     }).catch(err => {
         loginForm.querySelector('.error').innerHTML = err.message;
     })
 
 });
+
+//Save data to tasks to firebase
+const createForm = document.querySelector('#task-create-form');
+createForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    let status_color='';
+    if(createForm['inputStatus'].value == 'Assigned'){
+        status_color = 'secondary';
+    }
+    else if(createForm['inputStatus'].value == 'Submitted'){
+        status_color = 'warning';
+    }
+    else if(createForm['inputStatus'].value == 'Passed'){
+        status_color = 'primary';
+    }
+    else if(createForm['inputStatus'].value == 'Published'){
+        status_color = 'success';
+    }
+    else if(createForm['inputStatus'].value =='Rejected'){
+        status_color = 'danger';
+    }
+    else{
+        status_color = 'dark';
+    }
+
+    db.collection('tasks').add({
+        author: createForm['task-author-email'].value,
+        status: createForm['inputStatus'].value,
+        pub_date: createForm['task-date'].value,
+        pub_time: createForm['task-time'].value,
+        doc_link: createForm['task-link'].value,
+        status_color: status_color
+    }).then(() =>{
+        //Close modal and reset form
+        $("#task-modal").modal("hide");
+        createForm.reset();
+    }).catch(err => {
+        console.log(err.message);
+    })
+})
