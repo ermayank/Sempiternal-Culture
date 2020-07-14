@@ -4,6 +4,7 @@ const accountDetails = document.querySelector('.account-details');
 const jumbotron = document.querySelector('.jumbotron-section');
 const taskSection = document.querySelector('.taskSection');
 const authorNameList = document.querySelector('.author-name');
+const adminItems = document.querySelectorAll('.admin-link');
 
 function showPasswordSignup() {
   var x = document.getElementById("signup-password");
@@ -25,7 +26,9 @@ function showPasswordLogin() {
 
 const setupUI = (user) => {
   if (user) {
-
+    if(user.admin){
+      adminItems.forEach(item => item.style.display = 'block');
+    };
     db.collection('users').doc(user.uid).get().then(doc => {
       //Account info
       const html = `
@@ -43,7 +46,7 @@ const setupUI = (user) => {
     jumbotron.style.display = 'none';
   } else {
     //Hide account info
-    //adminItems.forEach(item => item.style.display = 'none');
+    adminItems.forEach(item => item.style.display = 'none');
     accountDetails.innerHTML = '';
 
     loggedInLinks.forEach(item => item.style.display = 'none');

@@ -1,7 +1,25 @@
+//Make admin
+const adminForm = document.querySelector('#admin-form');
+adminForm.addEventListener('click', (e) => {
+    e.preventDefault();
+    const adminEmail = document.querySelector('#admin-email').value;
+    const addAdminRole = functions.httpsCallable('addAdminRole');
+    addAdminRole({email:adminEmail}).then(result =>{
+        $("#make-admin-modal").modal("hide");
+        adminForm.reset();
+        console.log(result);
+    })
+})
+
 //Check the auth change
 auth.onAuthStateChanged(user => {
     
     if (user) {
+        user.getIdTokenResult().then(idTokenResult => {
+            user.admin = idTokenResult.claims.admin;
+            setupUI(user); // Function to get user profile
+        })
+        
         db.collection('users').onSnapshot(snapshot => {
             
             userNames(snapshot.docs); //Get User List in Create task modal
