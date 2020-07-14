@@ -2,10 +2,16 @@
 auth.onAuthStateChanged(user => {
     
     if (user) {
+        db.collection('users').onSnapshot(snapshot => {
+            
+            userNames(snapshot.docs); //Get User List in Create task modal
+        });
+
         //Get data from firestore (guides)
-        db.collection('tasks').onSnapshot(snapshot => {
+        db.collection('tasks').where('author', '==', user.email).orderBy('pub_date').onSnapshot(snapshot => {
             assignedTasks(snapshot.docs); // Function to get guides 
             setupUI(user);
+            
         });
     } else {
         setupUI();
@@ -27,7 +33,8 @@ signupForm.addEventListener('submit', (e) => {
     //Signup the user to firebase
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
         return db.collection('users').doc(cred.user.uid).set({
-            name: signupForm['signup-name'].value
+            name: signupForm['signup-name'].value,
+            email: email
         }); 
     }).then(() => {
         const modal = document.querySelector('#signup-modal');
@@ -105,3 +112,6 @@ createForm.addEventListener('submit', (e) => {
         console.log(err.message);
     })
 })
+
+
+  

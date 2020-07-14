@@ -3,6 +3,7 @@ const loggedInLinks = document.querySelectorAll('.login-link');
 const accountDetails = document.querySelector('.account-details');
 const jumbotron = document.querySelector('.jumbotron-section');
 const taskSection = document.querySelector('.taskSection');
+const authorNameList = document.querySelector('.author-name');
 
 function showPasswordSignup() {
   var x = document.getElementById("signup-password");
@@ -106,5 +107,23 @@ const assignedTasks = (data) => {
     taskSection.innerHTML = html;
   } else {
     taskSection.innerHTML = '<h5 class="center-align"> Login to view the guides</h5>'
+  }
+}
+
+//Get list of email address and give to create task
+const userNames = (data) => {
+
+  if (data.length) {
+    let html = '';
+    data.forEach(doc => {
+      const userName = doc.data();
+      let option = `
+      <option value="${userName.email}">${userName.email}</option>
+    `;
+      html += option;
+    });
+    authorNameList.innerHTML = html;
+  } else {
+    authorNameList.innerHTML = 'There is some error! Contact Admin'
   }
 }
