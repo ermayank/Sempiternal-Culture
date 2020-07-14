@@ -1,6 +1,6 @@
 //Make admin
 const adminForm = document.querySelector('#admin-form');
-adminForm.addEventListener('click', (e) => {
+adminForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const adminEmail = document.querySelector('#admin-email').value;
     const addAdminRole = functions.httpsCallable('addAdminRole');
