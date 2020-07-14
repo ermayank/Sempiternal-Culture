@@ -25,12 +25,12 @@ auth.onAuthStateChanged(user => {
             userNames(snapshot.docs); //Get User List in Create task modal
         });
 
-        //Get data from firestore (guides)
+        //Get data from firestore (tasks) user specific
         db.collection('tasks').where('author', '==', user.email).orderBy('pub_date').onSnapshot(snapshot => {
             assignedTasks(snapshot.docs); // Function to get guides 
             setupUI(user);
-            
         });
+        
     } else {
         setupUI();
         //setupGuides([]);
@@ -128,8 +128,33 @@ createForm.addEventListener('submit', (e) => {
         createForm.reset();
     }).catch(err => {
         console.log(err.message);
-    })
-})
+    });
+});
 
+// All List show Up
+document.querySelector('.allList').addEventListener('click', function() {
+    db.collection('tasks').orderBy('pub_date').onSnapshot(snapshot => {
+        assignedTasks(snapshot.docs); // Function to get guides 
+        BlogListHeading.innerHTML = `<b>All blogs</b>`;
+    });
+});
 
+// My List show Up
+document.querySelector('.myList').addEventListener('click', function() {
+    auth.onAuthStateChanged(user => {
+    
+        if (user) {
+            
+            //Get data from firestore (tasks) user specific
+            db.collection('tasks').where('author', '==', user.email).orderBy('pub_date').onSnapshot(snapshot => {
+                assignedTasks(snapshot.docs); // Function to get guides 
+                BlogListHeading.innerHTML = `<b>Your blogs</b>`;
+            });
+            
+        } else {
+            setupUI();
+            //setupGuides([]);
+        }
+    });
+});
   

@@ -3,6 +3,7 @@ const loggedInLinks = document.querySelectorAll('.login-link');
 const accountDetails = document.querySelector('.account-details');
 const jumbotron = document.querySelector('.jumbotron-section');
 const taskSection = document.querySelector('.taskSection');
+const BlogListHeading = document.querySelector('.BlogListHeading');
 const authorNameList = document.querySelector('.author-name');
 const adminItems = document.querySelectorAll('.admin-link');
 
@@ -35,7 +36,7 @@ const setupUI = (user) => {
       <div>Logged in as : <br><br>
       <b>Name</b> : ${doc.data().name} <br>
       <b>Email</b> : ${user.email}
-      <div class="pink-text">${user.admin ? 'Admin' : ''}</div>
+      <div class="text-danger">${user.admin ? 'Admin' : ''}</div>
      `;
       accountDetails.innerHTML = html;
     });
@@ -87,7 +88,7 @@ const assignedTasks = (data) => {
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill text-info" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
           </svg>
-          <b>Author</b>  : ${task.author}</p>
+          <b>Author</b>  : ${doc.id}</p>
               <p>
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-link-45deg" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
@@ -98,16 +99,24 @@ const assignedTasks = (data) => {
 <b>Link </b>- <a href="${task.doc_link}">Document Link</a></p>
             </div>
             <div class="col-md-4">
-              <center><p class="card"> <b>Status :  <h3><span class="badge badge-${task.status_color}">${task.status}</span></h3></p></center>
-              
+              <center><p class="card"> <b>Status :  <h3><span class="badge badge-${task.status_color}">${task.status}</span>
+              </h3></p></center>
             </div>
+            
           </div>
         </div>
       </li>
     `;
       html += li;
+      
     });
+   
     taskSection.innerHTML = html;
+    BlogListHeading.innerHTML = `<b>Your blogs</b>`;
+    // document.querySelector('.updateTaskStatus').addEventListener('click', function(){
+    //   alert(data.doc.id);
+    // })
+    
   } else {
     taskSection.innerHTML = '<h5 class="center-align"> Login to view the guides</h5>'
   }
