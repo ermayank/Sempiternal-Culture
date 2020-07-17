@@ -284,12 +284,12 @@
           </button>
         </div>
         <div class="modal-body">
-          <form class="py-2" id="task-modify-form">
+          <form class="py-2" id="task-modify-form" onsubmit="submitHandler()">
             <div class="row">
+              <input type="text" id="doc_id" style="display: none;">
               <div class="form-group col-md-6">
                 <label for="exampleInputEmail1">Author</label>
                 <select id="task-modify-author-email">
-
                 </select>
               </div>
               <div class="form-group col-md-6">
@@ -318,7 +318,7 @@
               <label>Document Link</label>
               <input type="text" class="form-control" id="task-link">
             </div>
-            <button class="btn btn-outline-danger modify-btn" onclick="submitHandler">Submit</button>
+            <button class="btn btn-outline-danger modify-btn" type="submit">Submit</button>
           </form>
         </div>
 

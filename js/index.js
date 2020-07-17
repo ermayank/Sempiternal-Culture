@@ -174,7 +174,7 @@ function modify_function(e){
   //Get existing data in Modify modal
   db.collection('tasks').doc(id).get().then((doc) => {
     const task = doc.data();
-    console.log(task);
+    //console.log(task);
 
     modifyForm.reset();
     
@@ -183,15 +183,17 @@ function modify_function(e){
     modifyForm['task-date'].value = task.pub_date;
     modifyForm['task-link'].value = task.doc_link;
     modifyForm['inputStatus'].value = task.status;
-
+    modifyForm['doc_id'].value = id;
     
   });
 };
 
-function submitHandler(event) {
+function submitHandler() {
+  const modifyForm = document.querySelector('#task-modify-form');
   event.preventDefault();
-  console.log('save button clicked');
-  console.log(id);
+  //console.log('save button clicked');
+  id = modifyForm['doc_id'].value;
+  //console.log(id);
 
 let status_color = '';
 if (modifyForm['inputStatus'].value == 'Assigned') {
@@ -208,7 +210,7 @@ if (modifyForm['inputStatus'].value == 'Assigned') {
   status_color = 'dark';
 }
 
-console.log(status_color);
+//console.log(status_color);
 db.collection('tasks').doc(id).update({
   author: modifyForm['task-modify-author-email'].value,
   status: modifyForm['inputStatus'].value,
@@ -225,4 +227,5 @@ db.collection('tasks').doc(id).update({
   .catch(err => {
     console.log(err.message);
   });
-}
+  
+};
