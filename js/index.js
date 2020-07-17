@@ -184,7 +184,8 @@ function modify_function(e){
     modifyForm['task-link'].value = task.doc_link;
     modifyForm['inputStatus'].value = task.status;
 
-    document.querySelector('.modify-btn').addEventListener('click', function(e) {
+    document.querySelector('.modify-btn').addEventListener('click', function(event) {
+      event.preventDefault();
       console.log('save button clicked');
       console.log(id);
   
