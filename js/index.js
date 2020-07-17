@@ -184,43 +184,45 @@ function modify_function(e){
     modifyForm['task-link'].value = task.doc_link;
     modifyForm['inputStatus'].value = task.status;
 
-    document.querySelector('.modify-btn').addEventListener('click', function(event) {
-      event.preventDefault();
-      console.log('save button clicked');
-      console.log(id);
-  
-    let status_color = '';
-    if (modifyForm['inputStatus'].value == 'Assigned') {
-      status_color = 'secondary';
-    } else if (modifyForm['inputStatus'].value == 'Submitted') {
-      status_color = 'warning';
-    } else if (modifyForm['inputStatus'].value == 'Passed') {
-      status_color = 'primary';
-    } else if (modifyForm['inputStatus'].value == 'Published') {
-      status_color = 'success';
-    } else if (modifyForm['inputStatus'].value == 'Rejected') {
-      status_color = 'danger';
-    } else {
-      status_color = 'dark';
-    }
-  
-    console.log(status_color);
-    db.collection('tasks').doc(id).update({
-      author: modifyForm['task-modify-author-email'].value,
-      status: modifyForm['inputStatus'].value,
-      pub_date: modifyForm['task-date'].value,
-      pub_time: modifyForm['task-time'].value,
-      doc_link: modifyForm['task-link'].value,
-      status_color: status_color
-    }).then(function () {
-          //Close modal and reset form
-          console.log('updated');
-          $("#modify-task-modal").modal("hide");
-          modifyForm.reset();
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
-    })
+    
   });
 };
+
+function submitHandler(event) {
+  event.preventDefault();
+  console.log('save button clicked');
+  console.log(id);
+
+let status_color = '';
+if (modifyForm['inputStatus'].value == 'Assigned') {
+  status_color = 'secondary';
+} else if (modifyForm['inputStatus'].value == 'Submitted') {
+  status_color = 'warning';
+} else if (modifyForm['inputStatus'].value == 'Passed') {
+  status_color = 'primary';
+} else if (modifyForm['inputStatus'].value == 'Published') {
+  status_color = 'success';
+} else if (modifyForm['inputStatus'].value == 'Rejected') {
+  status_color = 'danger';
+} else {
+  status_color = 'dark';
+}
+
+console.log(status_color);
+db.collection('tasks').doc(id).update({
+  author: modifyForm['task-modify-author-email'].value,
+  status: modifyForm['inputStatus'].value,
+  pub_date: modifyForm['task-date'].value,
+  pub_time: modifyForm['task-time'].value,
+  doc_link: modifyForm['task-link'].value,
+  status_color: status_color
+}).then(function () {
+      //Close modal and reset form
+      console.log('updated');
+      $("#modify-task-modal").modal("hide");
+      modifyForm.reset();
+  })
+  .catch(err => {
+    console.log(err.message);
+  });
+}
