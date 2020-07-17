@@ -10,10 +10,13 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-  <title>Sempiternal Culture</title>
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="./style.css">
+  <title>Sempiternal Culture - Admin</title>
 </head>
 
 <body>
+  
   <!-- Navbar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Sempiternal Culture</a>
@@ -269,6 +272,60 @@
     </div>
   </div>
 
+  <!--Modify Task Modal-->
+  <div class="modal fade" id="modify-task-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modify task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="py-2" id="task-modify-form">
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Author</label>
+                <select id="task-modify-author-email">
+
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputStatus">Staus</label>
+                <select id="inputStatus" class="form-control">
+                  <option value="Assigned">Assigned</option>
+                  <option value="Submitted">Submitted</option>
+                  <option value="Passed">Passed</option>
+                  <option value="Published">Published</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Publishing Date</label>
+                <input type="date" class="form-control" id="task-date">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Publishing Time</label>
+                <input type="time" class="form-control" id="task-time">
+                <small>In Am-Pm Format</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Document Link</label>
+              <input type="text" class="form-control" id="task-link">
+            </div>
+            <button class="btn btn-outline-danger modify-btn">Submit</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!--Make Admin Modal-->
   <div class="modal fade" id="make-admin-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -344,8 +401,8 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
     const functions = firebase.functions();
-
   </script>
+
   <!--Custom Script-->
   <script src="./js/index.js"></script>
   <script src="./js/auth.js"></script>

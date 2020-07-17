@@ -23,6 +23,7 @@ auth.onAuthStateChanged(user => {
         db.collection('users').onSnapshot(snapshot => {
             
             userNames(snapshot.docs); //Get User List in Create task modal
+            modifyUserNames(snapshot.docs);
         });
 
         //Get data from firestore (tasks) user specific
@@ -157,4 +158,4 @@ document.querySelector('.myList').addEventListener('click', function() {
         }
     });
 });
-  
+
