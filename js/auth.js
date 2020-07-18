@@ -27,8 +27,8 @@ auth.onAuthStateChanged(user => {
         });
 
         //Get data from firestore (tasks) user specific
-        db.collection('tasks').where('author', '==', user.email).orderBy('pub_date').onSnapshot(snapshot => {
-            assignedTasks(snapshot.docs); // Function to get guides 
+        db.collection('tasks').where('author', '==', user.email).orderBy('pub_date', "desc").onSnapshot(snapshot => {
+            myAssignedTasks(snapshot.docs); // Function to get guides 
             setupUI(user);
         });
         
@@ -134,10 +134,13 @@ createForm.addEventListener('submit', (e) => {
 
 // All List show Up
 document.querySelector('.allList').addEventListener('click', function() {
-    db.collection('tasks').orderBy('pub_date').onSnapshot(snapshot => {
-        assignedTasks(snapshot.docs); // Function to get guides 
+    db.collection('tasks').orderBy('pub_date','desc').onSnapshot(snapshot => {
+        
+        allAssignedTasks(snapshot.docs); // Function to get guides 
         BlogListHeading.innerHTML = `<b>All blogs</b>`;
-    });
+        modify_style.forEach(item => item.style.display = 'none');
+      
+    })
 });
 
 // My List show Up
@@ -147,9 +150,10 @@ document.querySelector('.myList').addEventListener('click', function() {
         if (user) {
             
             //Get data from firestore (tasks) user specific
-            db.collection('tasks').where('author', '==', user.email).orderBy('pub_date').onSnapshot(snapshot => {
-                assignedTasks(snapshot.docs); // Function to get guides 
+            db.collection('tasks').where('author', '==', user.email).orderBy('pub_date','desc').onSnapshot(snapshot => {
+                myAssignedTasks(snapshot.docs); // Function to get guides 
                 BlogListHeading.innerHTML = `<b>Your blogs</b>`;
+                
             });
             
         } else {
